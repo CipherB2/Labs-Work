@@ -1,45 +1,70 @@
-﻿#include <iostream>
+﻿#include "stdafx.h" 
+#include<iostream> 
 using namespace std;
-void F1(double*& mas, int& n)
+struct list
 {
-	int k = 0;
-	for (int i = 0; i < n; i++) {
-		if (mas[i] < 0)
-		{
-			k++;
-		}
+	int value;
+	list* next;
+	list()
+	{
+		value = 0;
+		next = NULL;
 	}
-	double* mas1 = new double[k];
-	int j = 0;
-	for (int i = 0; i < n; i++) {
-		if (mas[i] < 0)
-		{
-			mas1[j] = mas[i];
-			j++;
-		}
-	}
-	mas = mas1;
-	n = k;
-}
+};
 
+void DeleteFromList(list*& first)
+{
+	list* l = first;
+	list* p = NULL;
+	while (l != NULL)
+	{
+		if (l->value < 0)
+		{
+			p = l;
+			l = l->next;
+		}
+		else
+		{
+			p->next = l->next;
+			delete l;
+			l = p->next;
+		}
+	}
+}
+void OutputList(list* l)
+{
+	while (l != NULL)
+	{
+		cout << l->value;
+		l = l->next;
+		if (l != NULL)cout << ", ";
+	}
+	cout << endl;
+}
 int main()
 {
 	int n;
-	cout << "Enter n: ";
+	float z;
+	setlocale(LC_ALL, "rus");
+	cout << "Введите количество элементов списка: " << endl;
 	cin >> n;
-	double* mas = new double[n];
-	for (int i = 0; i < n; i++) {
-		cin >> mas[i];
-	}
-	for (int i = 0; i < n; i++) {
-		cout << mas[i] << " ";
-	}
-	cout << endl;
-	F1(mas, n);
-	for (int i = 0; i < n; i++)
+	cout << "Введите элементы списка: " << endl;
+	list* first = new list();
+	list* p = first;
+	int i = 0;
+	while (i < n)
 	{
-		cout << mas[i] << " ";
+		cin >> z;
+		p->value = z;
+		if (i != n)
+		{
+			p->next = new list();
+			p = p->next;
+		}
+		i++;
 	}
+	DeleteFromList(first);
+	OutputList(first);
 	system("pause");
 	return 0;
 }
