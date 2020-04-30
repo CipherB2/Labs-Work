@@ -1,77 +1,45 @@
 ﻿#include <iostream>
-#include <math.h>
 using namespace std;
-int F1(int x)
+void F1(double*& mas, int& n)
 {
-	int result;
-	if (x >= 0)
-	{
-		result = pow(x, x);
+	int k = 0;
+	for (int i = 0; i < n; i++) {
+		if (mas[i] < 0)
+		{
+			k++;
+		}
 	}
-	else
-	{
-		result = 2 * (x * x);
+	double* mas1 = new double[k];
+	int j = 0;
+	for (int i = 0; i < n; i++) {
+		if (mas[i] < 0)
+		{
+			mas1[j] = mas[i];
+			j++;
+		}
 	}
-	return result;
+	mas = mas1;
+	n = k;
 }
-void F2(int& x)
-{
-	x = F1(x);
-}
-
 
 int main()
 {
-	int N;
-	cin >> N;
-	for (int i = -3; i < N; i++)
-	{
-		float f = F1(i);
-		cout << "i=" << i << "; F1(i)=" << f << endl;
+	int n;
+	cout << "Enter n: ";
+	cin >> n;
+	double* mas = new double[n];
+	for (int i = 0; i < n; i++) {
+		cin >> mas[i];
 	}
-
+	for (int i = 0; i < n; i++) {
+		cout << mas[i] << " ";
+	}
+	cout << endl;
+	F1(mas, n);
+	for (int i = 0; i < n; i++)
+	{
+		cout << mas[i] << " ";
+	}
 	system("pause");
 	return 0;
 }
-
-//#include<iostream>
-//#include<math.h>
-//using namespace std;
-//float F1(int& x)
-//{
-//	float result;
-//	if (x >= 0)
-//	{
-//		result = pow(x, x);
-//	}
-//	else
-//	{
-//		result = 2 * (x * x);
-//	}
-//	return result;
-//}
-//void F2(int& x)
-//{
-//	x = F1(x);
-//
-
-
-//int main()
-//{
-//	int N;
-//	cin >> N;
-//	for (int i = -3; i < N; i++)
-//	{
-//		float f = F1(i);
-//		cout << "i=" << i << "; F1(i)=" << f << endl;
-//	}
-//	cout << endl;
-//	for (int i = -3; i < N; i++)
-//	{
-//		cout << "i=" << i << ";";
-//		F2(i);
-//		cout << "i=" << i << endl;
-//	}
-//	system("pause");
-//	return 0;
-//}
